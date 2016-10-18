@@ -12,10 +12,13 @@ class ImagesController < ApplicationController
   end
 
   def create
-    @image = Image.create params[:image]
+    @image = Image.new
+    @image.title = params[:image][:title]
+    # @image.user = params[:user]
+    puts @image.title
     respond_to do |format|
       if @image.save
-        format.html { redirect_to image_show_url, notice: "Thanks" }
+        format.html { redirect_to images_index_url, notice: "Image was uploaded!" }
       else
         format.html { render :index }
       end

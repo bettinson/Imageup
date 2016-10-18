@@ -1,1 +1,4 @@
-<td><%= link_to "Create", images_create_path(image) %></td>
+<%= form_for image, url: {action: "create"} do |f| %>
+  <%= f.text_field :title %>
+  <%= submit_tag 'Create' %>
+<% end %>
