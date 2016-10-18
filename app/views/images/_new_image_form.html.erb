@@ -1,4 +1,15 @@
 <%= form_for image, url: {action: "create"} do |f| %>
-  <%= f.text_field :title %>
-  <%= submit_tag 'Create' %>
+<% if image.errors.any? %>
+<div id="error_explanation">
+    <h5><%= pluralize(image.errors.count, "error") %>
+        prohibited this order from being saved:</h5>
+    <ul>
+        <% image.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+<p>Title <%= f.text_field :title %></p>
+<%= submit_tag 'Create' %>
 <% end %>

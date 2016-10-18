@@ -20,7 +20,8 @@ class ImagesController < ApplicationController
       if @image.save
         format.html { redirect_to images_index_url, notice: "Image was uploaded!" }
       else
-        format.html { render :index }
+        format.html { render :upload }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
       end
     end
   end
