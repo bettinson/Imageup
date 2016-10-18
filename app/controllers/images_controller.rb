@@ -15,7 +15,6 @@ class ImagesController < ApplicationController
     @image = Image.new
     @image.title = params[:image][:title]
     # @image.user = params[:user]
-    puts @image.title
     respond_to do |format|
       if @image.save
         format.html { redirect_to images_index_url, notice: "Image was uploaded!" }

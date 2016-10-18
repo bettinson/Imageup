@@ -13,6 +13,7 @@
     <% @images.each do |image| %>
       <tr>
         <p><%= image.title %> </p>
+        <%= link_to 'Show', images_display_url(id: image.id) %>
       </tr>
     <% end %>
   </tbody>
