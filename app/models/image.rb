@@ -1,4 +1,4 @@
 class Image < ApplicationRecord
-  validates :title, presence: true
+  validates :title, :path, presence: true
   # belongs_to :user
 end

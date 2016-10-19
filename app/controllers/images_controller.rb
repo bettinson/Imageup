@@ -9,10 +9,12 @@ class ImagesController < ApplicationController
 
   def upload
     @image = Image.new
-  end
+    uploaded_io = params[:image][:picture]
+    File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
+      file.write(uploaded_io.read)
+      @image.path = uploaded_io.original_filename
+    end
 
-  def create
-    @image = Image.new
     @image.title = params[:image][:title]
     # @image.user = params[:user]
     respond_to do |format|
@@ -23,5 +25,9 @@ class ImagesController < ApplicationController
         format.json { render json: @image.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def create
+    @image = Image.new
   end
 end

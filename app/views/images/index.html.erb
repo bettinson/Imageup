@@ -13,6 +13,9 @@
     <% @images.each do |image| %>
       <tr>
         <p><%= image.title %> </p>
+        <% image_path = "/images/" + image.path %>
+        <%= image_tag(image_path, :size => "260x180", :crop => :fill) %>
+        <br>
         <%= link_to 'Show', images_display_url(id: image.id) %>
       </tr>
     <% end %>
@@ -21,4 +24,4 @@
 
 <br>
 
-<%= link_to 'Upload image', images_upload_path %>
+<%= link_to 'Upload image', images_create_path %>
