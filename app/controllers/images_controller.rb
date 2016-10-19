@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
   end
 
   def index
-    @images = Image.all
+    @images = Image.all unless Image.all.nil?
   end
 
   def upload
