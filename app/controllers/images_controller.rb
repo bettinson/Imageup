@@ -4,15 +4,18 @@ class ImagesController < ApplicationController
   end
 
   def index
-    @images = Image.all unless Image.all.nil?
+    @images = Image.all
   end
 
   def upload
     @image = Image.new
     uploaded_io = params[:image][:picture]
-    File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
+
+    hashed_name = hash_file_name(uploaded_io.original_filename + Image.count.to_s)
+
+    File.open(Rails.root.join('public', 'images', hashed_name), 'wb') do |file|
       file.write(uploaded_io.read)
-      @image.path = uploaded_io.original_filename
+      @image.path = hashed_name
     end
 
     @image.title = params[:image][:title]
@@ -29,5 +32,11 @@ class ImagesController < ApplicationController
 
   def create
     @image = Image.new
+  end
+
+  private
+  def hash_file_name(filename)
+    require 'digest/sha1'
+    return Digest::SHA1.hexdigest(filename)
   end
 end
