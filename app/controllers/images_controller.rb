@@ -10,12 +10,12 @@ class ImagesController < ApplicationController
   def upload
     @image = Image.new
     uploaded_io = params[:image][:picture]
-
-    hashed_name = hash_file_name(uploaded_io.original_filename + Image.count.to_s)
-
-    File.open(Rails.root.join('public', 'images', hashed_name), 'wb') do |file|
-      file.write(uploaded_io.read)
-      @image.path = hashed_name
+    if uploaded_io
+      hashed_name = hash_file_name(uploaded_io.original_filename + Image.count.to_s)
+      File.open(Rails.root.join('public', 'images', hashed_name), 'wb') do |file|
+        file.write(uploaded_io.read)
+        @image.path = hashed_name
+      end
     end
 
     @image.title = params[:image][:title]
@@ -24,7 +24,7 @@ class ImagesController < ApplicationController
       if @image.save
         format.html { redirect_to images_index_url, notice: "Image was uploaded!" }
       else
-        format.html { render :upload }
+        format.html { render :create }
         format.json { render json: @image.errors, status: :unprocessable_entity }
       end
     end

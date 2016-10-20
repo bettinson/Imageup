@@ -6,6 +6,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     # Image is the model, picture is the actual file
     @image = images(:one)
     @picture = fixture_file_upload('test/fixtures/files/test_image.png','application/png')
+    @pdf = fixture_file_upload('test/fixtures/files/test_fail.pdf','application/pdf')
   end
 
   def file_data(name)
@@ -22,7 +23,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get create pages" do
+  test "should get create page" do
     get images_create_url
     assert_response :success
   end
@@ -33,5 +34,11 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to images_index_url
+  end
+
+  test "should fail on invalid image" do
+    assert_no_difference('Image.count') do
+      post images_upload_url, params: { image: { title: 'Hey', picture: @pdf } }
+    end
   end
 end
