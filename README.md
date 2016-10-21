@@ -1,24 +1,16 @@
-# README
+# Image uploader
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Get started with:
 
-Things you may want to cover:
+`bundle install --without production && rake db:migrate`
 
-* Ruby version
+Run tests with:
 
-* System dependencies
+`rake`
 
-* Configuration
+Eventual roadmap:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Index page with thumbnails created by worker tasks
+- Users
+- Tagging
+- Searching
