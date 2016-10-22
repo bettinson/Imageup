@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/new'
+
   get 'images/display'
   get 'images/index'
   get 'images/upload'
