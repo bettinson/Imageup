@@ -12,9 +12,10 @@ class ImagesController < ApplicationController
     uploaded_io = params[:image][:picture]
     if uploaded_io
       hashed_name = hash_file_name(uploaded_io.original_filename + Image.count.to_s)
-      File.open(Rails.root.join('public', 'images', hashed_name), 'wb') do |file|
+      extension = File.extname(uploaded_io.original_filename)
+      File.open(Rails.root.join('public', 'images', hashed_name + extension), 'wb') do |file|
         file.write(uploaded_io.read)
-        @image.path = hashed_name
+        @image.path = hashed_name + extension
       end
     end
 
