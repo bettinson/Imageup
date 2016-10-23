@@ -5,6 +5,8 @@ class Image < ApplicationRecord
   # belongs_to :user
 
   def is_accepted_file_format
-    errors.add(:path, "isn't a valid file") unless [".jpg", ".png", ".jpeg"].include? File.extname(path).downcase
+    if !path.nil?
+      errors.add(:path, "isn't a valid file") unless [".gif",".jpg", ".png", ".jpeg"].include? File.extname(path).downcase
+    end
   end
 end

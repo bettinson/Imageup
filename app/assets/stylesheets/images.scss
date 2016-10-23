@@ -1,3 +1,97 @@
-// Place all the styles related to the Images controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ @import "bootstrap";
+
+ /* Space out content a bit */
+ body {
+   padding-top: 1.5rem;
+   padding-bottom: 1.5rem;
+   margin: 2rem;
+ }
+
+ /* Everything but the jumbotron gets side spacing for mobile first views */
+ .header,
+ .marketing,
+ .footer {
+   padding-right: 1rem;
+   padding-left: 1rem;
+ }
+
+ /* Custom page header */
+ .header {
+   padding-bottom: 1rem;
+   border-bottom: .05rem solid #e5e5e5;
+ }
+ /* Make the masthead heading the same height as the navigation */
+ .header h3 {
+   margin-top: 0;
+   margin-bottom: 0;
+   line-height: 3rem;
+ }
+
+ /* Custom page footer */
+ .footer {
+   padding-top: 1.5rem;
+   color: #777;
+   border-top: .05rem solid #e5e5e5;
+ }
+
+ /* Customize container */
+ @media (min-width: 48em) {
+   .container {
+     max-width: 46rem;
+   }
+ }
+ .container-narrow > hr {
+   margin: 1rem 0;
+ }
+
+ /* Main marketing message and sign up button */
+ .jumbotron {
+   text-align: center;
+   border-bottom: .05rem solid #e5e5e5;
+ }
+ .jumbotron .btn {
+   padding: .75rem 1.5rem;
+   font-size: 1.5rem;
+ }
+
+ /* Supporting marketing content */
+ .marketing {
+   margin: 3rem 0;
+ }
+ .marketing p + h4 {
+   margin-top: 1.5rem;
+ }
+
+ /* Responsive: Portrait tablets and up */
+ @media screen and (min-width: 48em) {
+   /* Remove the padding we set earlier */
+   .header,
+   .marketing,
+   .footer {
+     padding-right: 0;
+     padding-left: 0;
+   }
+   /* Space out the masthead */
+   .header {
+     margin-bottom: 2rem;
+   }
+   /* Remove the bottom border on the jumbotron for visual effect */
+   .jumbotron {
+     border-bottom: 0;
+   }
+ }

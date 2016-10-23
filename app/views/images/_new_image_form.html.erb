@@ -10,8 +10,10 @@
     </ul>
 </div>
 <% end %>
-<p>Title
-    <%= f.text_field :title %></p>
-    <%= f.file_field :picture %>
-<%= submit_tag 'Create' %>
+<%= f.label :title %>
+<%= f.text_field :title, class: 'form-control'  %>
+<br>
+<%= f.file_field :picture, class: 'form-control-file' %>
+<br>
+<%= submit_tag 'Create', class: "btn btn-primary"  %>
 <% end %>
