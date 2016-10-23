@@ -13,7 +13,11 @@ class ImagesController < ApplicationController
     if uploaded_io
       hashed_name = hash_file_name(uploaded_io.original_filename + Image.count.to_s)
       extension = File.extname(uploaded_io.original_filename)
-      File.open(Rails.root.join('public', 'images', hashed_name + extension), 'wb') do |file|
+
+
+      production = "/home/matt/photos/#{hashed_name + extension}"
+      local = "/Users/mattbettinson/photos/#{hashed_name + extension}"
+      File.open(production, 'wb') do |file|
         file.write(uploaded_io.read)
         @image.path = hashed_name + extension
       end
