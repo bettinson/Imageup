@@ -1,5 +1,5 @@
 # Change these
-server 'localhost', port: 3333, roles: [:web, :app, :db], primary: true
+server '104.131.50.247', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:bettinson/image_uploader.git'
 set :application,     'image_uploader'
