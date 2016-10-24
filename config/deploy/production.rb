@@ -8,9 +8,9 @@
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
 
-
-config.serve_static_assets = true
-
+Rails.application.configure do
+  config.serve_static_assets = true
+end
 # role-based syntax
 # ==================
 
