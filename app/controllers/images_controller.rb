@@ -15,7 +15,7 @@ class ImagesController < ApplicationController
       extension = File.extname(uploaded_io.original_filename)
 
 
-      production = "/home/matt/photos/#{hashed_name + extension}"
+      production = "/home/matt/images/#{hashed_name + extension}"
       local = "/Users/mattbettinson/photos/#{hashed_name + extension}"
       File.open(production, 'wb') do |file|
         file.write(uploaded_io.read)
