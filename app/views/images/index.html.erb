@@ -10,7 +10,7 @@
                 <div class="col-sm-4">
                     <p><%= image.title %>
                     </p>
-                    <% image_path = "images/" + image.path %>
+                    <% image_path = "~/images/" + image.path %>
                     <%= link_to image_tag(image_path, :size => "260x180", :crop => :fill), images_display_url(id: image.id) %>
                 </div>
             </div>
