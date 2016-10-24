@@ -24,3 +24,4 @@ production:
   <<: *default
   adapter: mysql
   database: /home/matt/db/production.sqlite3
+  url: <%= ENV['DATABASE_URL'] %>
