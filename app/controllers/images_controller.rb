@@ -15,9 +15,12 @@ class ImagesController < ApplicationController
       extension = File.extname(uploaded_io.original_filename)
 
 
-      production = "/home/matt/images/#{hashed_name + extension}"
-      local = "/Users/mattbettinson/photos/#{hashed_name + extension}"
-      File.open(production, 'wb') do |file|
+      if Rails.env.production?
+        path = "/home/matt/images/#{hashed_name + extension}"
+      else
+        path = "#{Rails.root}/public/images/#{hashed_name + extension}"
+      end
+      File.open(path, 'wb') do |file|
         file.write(uploaded_io.read)
         @image.path = hashed_name + extension
       end
