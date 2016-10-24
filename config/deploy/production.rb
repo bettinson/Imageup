@@ -9,7 +9,7 @@
 
 
 
-config.serve_static_assets = true
+serve_static_assets = true
 
 # role-based syntax
 # ==================
