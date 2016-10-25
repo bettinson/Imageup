@@ -1,16 +1,18 @@
 require 'test_helper'
 
 class ImagesControllerTest < ActionDispatch::IntegrationTest
+  include SessionsHelper
 
   setup do
     # Image is the model, picture is the actual file
+    @user = users(:matt)
+    @user.name = "Matt"
     @image = images(:one)
+    @image.user = @user
+    @user.images << @image
+
     @picture = fixture_file_upload('test/fixtures/files/test_image.png','application/png')
     @pdf = fixture_file_upload('test/fixtures/files/test_fail.pdf','application/pdf')
-  end
-
-  def file_data(name)
-    File.read(Rails.root.to_s + "/test/fixtures/files/#{name}")
   end
 
   test "should get display" do
@@ -29,6 +31,9 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should upload image" do
+    post login_path, params: { session: { email:    @user.email,
+                                          password: 'password' } }
+
     assert_difference('Image.count') do
       post images_upload_url, params: { image: { title: 'Hey', picture: @picture } }
     end

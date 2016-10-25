@@ -9,7 +9,9 @@
             <div class="row">
                 <div class="col-sm-4">
                     <p><%= image.title %></p>
-                    <p>Posted by: <%=link_to("#{image.user.name}", user_url(image.user.id), data: nil)%> </p>
+					<% if !image.user.nil? %>
+						<p>Posted by: <%=link_to("#{image.user.name}", user_url(image.user.id), data: nil)%> </p>
+					<% end %>
                     <p>Uploaded on: <%= image.created_at.strftime("%d %b. %Y") +" "+ image.created_at.strftime("%H:%M") %></p>
                     <% if Rails.env.production? %>
                       <% image_path = "/i/" + image.path %>
