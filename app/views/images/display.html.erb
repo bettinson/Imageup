@@ -1,10 +1,17 @@
 <p><%= @image.title %></p>
-<p>Posted by: <%=link_to("#{@image.user.name}", user_url(@image.user.id), data: nil)%> </p>
+<p>Posted by:
+    <%=link_to("#{@image.user.name}", user_url(@image.user.id), data: nil)%>
+</p>
 <% if Rails.env.production?%>
-  <% image_path = "/i/" + @image.path %>
+<% image_path = "/i/" + @image.path %>
 <% else %>
-  <% image_path = @image.path %>
+<% image_path = @image.path %>
 <% end %>
 
 <%= image_tag(image_path) %>
-<%= link_to 'Delete', images_url(id: @image.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+
+<% if logged_in? %>
+  <% if current_user.email == @image.user.email %>
+    <%= link_to 'Delete', images_url(id: @image.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+<% end %>
