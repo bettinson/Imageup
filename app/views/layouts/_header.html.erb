@@ -4,12 +4,38 @@
             <li class="nav-item">
                 <%= link_to "Home", root_path %>
             </li>
+            <% if logged_in? %>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Account
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><%= link_to "Profile", current_user %></li>
+                    <li><%= link_to "Settings", '#' %></li>
+                    <li class="divider"></li>
+                    <li>
+                        <%= link_to "Log out", logout_path, method: "delete" %>
+                    </li>
+                </ul>
+            </li>
+        <% else %>
             <li class="nav-item">
                 <%= link_to "Sign up", signup_path %>
-            </li>
+            </liclass="nav-item">
+        <li><%= link_to "Log in", login_path %></li>
+        <% end %>
+        <ul class="nav nav-pills navbar-right">
             <li class="nav-item">
-              <%= link_to 'Upload image', images_create_path %>
+                <%= link_to 'Upload image', images_create_path %>
             </li>
         </ul>
-    </nav>
+
+        <!-- <ul class="nav nav-justified">
+          <li class="nav-item">
+            <%= link_to 'Image Uploader', root_path %>
+          </li>
+        </ul> -->
+</ul>
+</nav>
 </div>
