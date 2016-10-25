@@ -7,5 +7,18 @@
         <%= @user.name %>
       </h1>
     </section>
+    <tr>
+      <% @user.images.each do |image| %>
+        <p><%= image.title %></p>
+        <% if Rails.env.production? %>
+          <% image_path = "/i/" + image.path %>
+        <% else %>
+          <% image_path = image.path %>
+        <% end %>
+        <div class="image_container">
+          <%= link_to image_tag(image_path, :size => "", :crop => :fill), images_display_url(id: image.id) %>
+        </div>
+      <% end %>
+    </tr>
   </aside>
 </div>

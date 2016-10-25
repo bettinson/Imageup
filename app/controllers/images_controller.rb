@@ -8,32 +8,40 @@ class ImagesController < ApplicationController
   end
 
   def upload
-    @image = Image.new
-    uploaded_io = params[:image][:picture]
-    if uploaded_io
-      hashed_name = hash_file_name(uploaded_io.original_filename + Image.count.to_s)
-      extension = File.extname(uploaded_io.original_filename)
+    if logged_in?
+      @image = Image.new
+      uploaded_io = params[:image][:picture]
+      if uploaded_io
+        hashed_name = hash_file_name(uploaded_io.original_filename + Image.count.to_s)
+        extension = File.extname(uploaded_io.original_filename)
 
 
-      if Rails.env.production?
-        path = "/home/matt/images/#{hashed_name + extension}"
-      else
-        path = "#{Rails.root}/public/images/#{hashed_name + extension}"
+        if Rails.env.production?
+          path = "/home/matt/images/#{hashed_name + extension}"
+        else
+          path = "#{Rails.root}/public/images/#{hashed_name + extension}"
+        end
+        File.open(path, 'wb') do |file|
+          file.write(uploaded_io.read)
+          @image.path = hashed_name + extension
+        end
       end
-      File.open(path, 'wb') do |file|
-        file.write(uploaded_io.read)
-        @image.path = hashed_name + extension
-      end
-    end
 
-    @image.title = params[:image][:title]
-    # @image.user = params[:user]
-    respond_to do |format|
-      if @image.save
-        format.html { redirect_to images_index_url, notice: "Image was uploaded!" }
-      else
-        format.html { render :create }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
+      @image.title = params[:image][:title]
+      # @image.user = params[:user]
+      @image.user = current_user
+      current_user.images << @image
+      respond_to do |format|
+        if @image.save
+          format.html { redirect_to images_index_url, notice: "Image was uploaded!" }
+        else
+          format.html { render :create }
+          format.json { render json: @image.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to sessions_new_url, notice: "You need to log in to post images." }
       end
     end
   end
