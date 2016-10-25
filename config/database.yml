@@ -22,6 +22,4 @@ test:
 
 production:
   <<: *default
-  adapter: mysql
-  database: /home/matt/db/production.sqlite3
-  url: <%= ENV['DATABASE_URL'] %>
+  database: /home/matt/image_uploader/db/production.sqlite3
