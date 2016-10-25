@@ -1,4 +1,5 @@
 <p><%= @image.title %></p>
+<p>Posted by: <%=link_to("#{@image.user.name}", user_url(@image.user.id), data: nil)%> </p>
 <% if Rails.env.production?%>
   <% image_path = "/i/" + @image.path %>
 <% else %>
