@@ -6,3 +6,4 @@
 <% end %>
 
 <%= image_tag(image_path) %>
+<%= link_to 'Delete', images_url(id: @image.id), method: :delete, data: { confirm: 'Are you sure?' } %>

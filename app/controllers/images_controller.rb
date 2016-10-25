@@ -42,6 +42,17 @@ class ImagesController < ApplicationController
     @image = Image.new
   end
 
+  def destroy
+    @image = Image.find(params[:id])
+    respond_to do |format|
+      if @image.destroy
+        format.html { redirect_to images_index_url, notice: "Image was deleted!" }
+      else
+        format.html { redirect_to images_index_url, notice: "Image was unable to be deleted." }
+      end
+    end
+  end
+
   private
   def hash_file_name(filename)
     require 'digest/sha1'

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'images/create'
   post 'images/upload'
   root 'images#index'
+  delete '/images', to: 'images#destroy'
 
   get  '/signup',  to: 'users#new'
   get    '/login',   to: 'sessions#new'

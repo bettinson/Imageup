@@ -41,4 +41,14 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
       post images_upload_url, params: { image: { title: 'Hey', picture: @pdf } }
     end
   end
+
+  test "should delete image" do
+    image = images(:one)
+
+    assert_difference('Image.count', -1) do
+      # byebug
+      delete images_url(id: image.id)
+    end
+    assert_redirected_to images_index_url
+  end
 end
