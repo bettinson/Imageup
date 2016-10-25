@@ -3,6 +3,7 @@
 one:
   path: MyString
   title: MyString
+  user: matt
 
 two:
   path: MyString

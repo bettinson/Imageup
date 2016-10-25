@@ -51,11 +51,18 @@ class ImagesController < ApplicationController
 
   def destroy
     @image = Image.find(params[:id])
-    respond_to do |format|
-      if @image.destroy
-        format.html { redirect_to images_index_url, notice: "Image was deleted!" }
-      else
-        format.html { redirect_to images_index_url, notice: "Image was unable to be deleted." }
+    user = User.find(@image.user_id)
+    if logged_in? && current_user.email == user.email
+      respond_to do |format|
+        if @image.destroy
+          format.html { redirect_to images_index_url, notice: "Image was deleted!" }
+        else
+          format.html { redirect_to images_index_url, notice: "Image was unable to be deleted." }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to images_index_url, notice: "You need to log in to delete your own images." }
       end
     end
   end

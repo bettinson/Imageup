@@ -8,8 +8,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     @user = users(:matt)
     @user.name = "Matt"
     @image = images(:one)
-    @image.user = @user
-    @user.images << @image
 
     @picture = fixture_file_upload('test/fixtures/files/test_image.png','application/png')
     @pdf = fixture_file_upload('test/fixtures/files/test_fail.pdf','application/pdf')
@@ -31,6 +29,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should upload image" do
+    # Logs in first
     post login_path, params: { session: { email:    @user.email,
                                           password: 'password' } }
 
@@ -47,13 +46,22 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "should delete image" do
-    image = images(:one)
+  test "shouldn't delete image if not on right account" do
+    assert_no_difference('Image.count', -1) do
+      # byebug
+      delete images_url(id: @image.id)
+    end
+    assert_redirected_to images_index_url
+  end
 
+  test "should delete image if on right account" do
+    post login_path, params: { session: { email:    @user.email,
+                                          password: 'password' } }
     assert_difference('Image.count', -1) do
       # byebug
-      delete images_url(id: image.id)
+      delete images_url(id: @image.id)
     end
+
     assert_redirected_to images_index_url
   end
 end
