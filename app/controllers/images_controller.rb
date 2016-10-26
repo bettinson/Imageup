@@ -1,3 +1,6 @@
+require 'resque'
+require './app/jobs/thumbnail_job.rb'
+
 class ImagesController < ApplicationController
   def display
     @image = Image.find(params[:id])
@@ -27,11 +30,13 @@ class ImagesController < ApplicationController
       end
 
       @image.title = params[:image][:title]
-      # @image.user = params[:user]
       @image.user = current_user
       current_user.images << @image
+      
+      # Creates thumbnail
       respond_to do |format|
         if @image.save
+          Resque.enqueue(Thumbnail, @image)
           format.html { redirect_to images_index_url, notice: "Image was uploaded!" }
         else
           format.html { render :create }
