@@ -16,6 +16,10 @@ Load server with:
 
 `$ rails server` and then go to `http://localhost:3000`
 
+Start the thumbnail background thread in another thread with:
+
+`INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work`
+
 ## Eventual roadmap:
 
 - Index page with thumbnails created by worker tasks
