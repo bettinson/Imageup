@@ -13,11 +13,11 @@ class ImagesController < ApplicationController
   def upload
     if logged_in?
       @image = Image.new
+
       uploaded_io = params[:image][:picture]
       if uploaded_io
         hashed_name = hash_file_name(uploaded_io.original_filename + Image.count.to_s)
         extension = File.extname(uploaded_io.original_filename)
-
         if Rails.env.production?
           path = "/home/matt/images/#{hashed_name + extension}"
         else

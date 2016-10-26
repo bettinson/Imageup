@@ -14,12 +14,16 @@
 					<% end %>
                     <p>Uploaded on: <%= image.created_at.strftime("%d %b. %Y") +" "+ image.created_at.strftime("%H:%M") %></p>
                     <% if Rails.env.production? %>
-                      <% image_path = "/i/" + image.path %>
+					  <% image_path = "/i/" + image.path %>
                     <% else %>
-                      <% image_path = image.path %>
+						<% if !image.thumb_nail_path.nil? %>
+						  	<% image_path = image.thumb_nail_path %>
+						<% else %>
+							<% image_path = image.path %>
+					 	<% end %> 
                     <% end %>
                   <div class="image_container">
-                    <%= link_to image_tag(image_path, :size => "", :crop => :fill), images_display_url(id: image.id) %>
+					  <%= link_to image_tag("#{image_path}", :size => "", :crop => :fill), images_display_url(id: image.id) %>
                   </div>
                 </div>
             </div>
