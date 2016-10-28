@@ -6,6 +6,7 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 gem 'bcrypt'
 gem 'rails-controller-testing'
 gem 'resque'
+gem 'redis'
 gem 'resque-web', require: 'resque_web'
 gem 'mini_magick'
 
