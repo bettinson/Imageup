@@ -72,13 +72,18 @@ namespace :deploy do
       invoke 'puma:restart'
     end
 
-    # run "cd #{current_path} && INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work"
+  end
+
+  desc 'Run Resque workers'
+  task :resque do
+    run "cd #{current_path} && redis-server && INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work"
   end
 
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
+  after  :finishing,    :resque
 end
 
 # ps aux | grep puma    # Get puma pid
