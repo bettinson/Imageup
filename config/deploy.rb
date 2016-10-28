@@ -77,7 +77,7 @@ namespace :deploy do
   desc 'Run Resque workers'
   task :resque do
     on roles(:app) do
-      execute "cd #{current_path} && redis-server --daemonize yes && INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work"
+      execute "cd #{current_path} && redis-server && INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work"
     end
   end
 

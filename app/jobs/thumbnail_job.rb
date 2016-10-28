@@ -5,7 +5,7 @@ class Thumbnail
   def self.perform(image)
     @image = Image.find(image["id"])
 
-    #File is original
+    #File name of original
     file = image["path"]
     if Rails.env.production?
       path = "/home/matt/images/#{file}"
