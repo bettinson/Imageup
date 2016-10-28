@@ -76,7 +76,7 @@ namespace :deploy do
 
   desc 'Run Resque workers'
   task :resque do
-    run "cd #{current_path} && redis-server && INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work"
+    run "redis-server && INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work"
   end
 
   before :starting,     :check_revision
