@@ -71,6 +71,8 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       invoke 'puma:restart'
     end
+
+    # run "cd #{current_path} && INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work"
   end
 
   before :starting,     :check_revision

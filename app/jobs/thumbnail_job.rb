@@ -1,6 +1,7 @@
 class Thumbnail
   @queue = :serve_thumbnail
 
+  # Param is an image hash
   def self.perform(image)
     @image = Image.find(image["id"])
 
