@@ -28,3 +28,5 @@ class Thumbnail
     #Resize image
   end
 end
+
+# "cd #{current_path} && redis-server && INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work"
