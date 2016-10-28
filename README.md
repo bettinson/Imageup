@@ -25,7 +25,7 @@ Load server with:
 
 Start the thumbnail background thread in another thread with:
 
-`INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work`
+`redis-server` and `INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work`
 
 ## Eventual roadmap:
 
