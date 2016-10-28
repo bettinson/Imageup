@@ -23,10 +23,10 @@
 					 	<% end %> 
                     <% end %>
                   <div class="image_container">
-					  <%= link_to image_tag("#{image_path}", :size => "", :crop => :fill), images_display_url(id: image.id) %>
+					  <%= link_to(image_tag(image_path, :border => "0"), images_display_url(id: image.id))  %>
                   </div>
                 </div>
             </div>
         </tr>
-      <% end %>
+	  <% end %>
 <br>

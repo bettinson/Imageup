@@ -32,10 +32,10 @@ class ImagesController < ApplicationController
       @image.title = params[:image][:title]
       @image.user = current_user
       current_user.images << @image
-      
-      # Creates thumbnail
+
       respond_to do |format|
         if @image.save
+          # Creates thumbnail
           Resque.enqueue(Thumbnail, @image)
           format.html { redirect_to images_index_url, notice: "Image was uploaded!" }
         else
