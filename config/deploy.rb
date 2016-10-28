@@ -80,7 +80,7 @@ namespace :deploy do
   after  :finishing,    :restart
 end
 
-execute "cd #{current_path} && redis-server && INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work"
+cd current_path && redis-server && INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work
 # ps aux | grep puma    # Get puma pid
 # kill -s SIGUSR2 pid   # Restart puma
 # kill -s SIGTERM pid   # Stop puma
