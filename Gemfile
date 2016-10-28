@@ -9,6 +9,8 @@ gem 'resque'
 gem 'redis'
 gem 'resque-web', require: 'resque_web'
 gem 'mini_magick'
+gem 'execjs'
+
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
