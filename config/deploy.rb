@@ -73,22 +73,14 @@ namespace :deploy do
     end
 
   end
-/*
-  desc 'Run Resque workers'
-  task :resque do
-    on roles(:app) do
-      execute "cd #{current_path} && redis-server && INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work"
-    end
-  end
-*/
 
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
- # after  :finishing,    :resque
 end
 
+execute "cd #{current_path} && redis-server && INTERVAL=5 QUEUE=serve_thumbnail rake environment resque:work"
 # ps aux | grep puma    # Get puma pid
 # kill -s SIGUSR2 pid   # Restart puma
 # kill -s SIGTERM pid   # Stop puma
