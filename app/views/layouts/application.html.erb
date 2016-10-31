@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>ImageUploader</title>
+
         <%= csrf_meta_tags %>
 
         <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,7 +10,6 @@
     </head>
 
     <body>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <%= render 'layouts/header' %>
         <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
