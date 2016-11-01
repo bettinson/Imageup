@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026160632) do
+ActiveRecord::Schema.define(version: 20161101160824) do
 
   create_table "images", force: :cascade do |t|
     t.string   "path"
@@ -21,12 +21,23 @@ ActiveRecord::Schema.define(version: 20161026160632) do
     t.string   "thumb_nail_path"
   end
 
+  create_table "relationships", force: :cascade do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "password_digest"
+    t.string   "remember_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
