@@ -7,7 +7,11 @@
         <%= @user.name %>
       </h1>
     </section>
-    <tr>
+    <section class="stats">
+        <%= render 'shared/stats' %>
+    </section>
+    <div class ="col-md-8">
+        <%=render 'follow_form' if logged_in? %>
       <% @user.images.each do |image| %>
         <p><%= image.title %></p>
         <% if Rails.env.production? %>
@@ -19,6 +23,6 @@
           <%= link_to image_tag(image_path, :size => "", :crop => :fill), images_display_url(id: image.id) %>
         </div>
       <% end %>
-    </tr>
+    </div>
   </aside>
 </div>
