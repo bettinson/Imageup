@@ -41,6 +41,9 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should fail on invalid image" do
+    post login_path, params: { session: { email:    @user.email,
+                                          password: 'password' } }
+
     assert_no_difference('Image.count') do
       post images_upload_url, params: { image: { title: 'Hey', picture: @pdf } }
     end

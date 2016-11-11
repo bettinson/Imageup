@@ -2,6 +2,9 @@ require 'resque'
 require './app/jobs/thumbnail_job.rb'
 
 class ImagesController < ApplicationController
+  before_action :require_login, only: [:upload, :create, :destroy]
+  include ImagesHelper
+
   def display
     @image = Image.find(params[:id])
   end
@@ -11,41 +14,22 @@ class ImagesController < ApplicationController
   end
 
   def upload
-    if logged_in?
-      @image = Image.new
+    @image = Image.new
+    path = write_image(params[:image][:picture])
+    @image.path = path unless path == nil
+    @image.title = params[:image][:title]
+    @image.user = current_user
 
-      uploaded_io = params[:image][:picture]
-      if uploaded_io
-        hashed_name = hash_file_name(uploaded_io.original_filename + Image.count.to_s)
-        extension = File.extname(uploaded_io.original_filename)
-        if Rails.env.production?
-          path = "/home/matt/images/#{hashed_name + extension}"
-        else
-          path = "#{Rails.root}/public/images/#{hashed_name + extension}"
-        end
-        File.open(path, 'wb') do |file|
-          file.write(uploaded_io.read)
-          @image.path = hashed_name + extension
-        end
-      end
+    current_user.images << @image
 
-      @image.title = params[:image][:title]
-      @image.user = current_user
-      current_user.images << @image
-
-      respond_to do |format|
-        if @image.save
-          # Creates thumbnail
-          Resque.enqueue(Thumbnail, @image)
-          format.html { redirect_to images_index_url, notice: "Image was uploaded!" }
-        else
-          format.html { render :create }
-          format.json { render json: @image.errors, status: :unprocessable_entity }
-        end
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to sessions_new_url, notice: "You need to log in to post images." }
+    respond_to do |format|
+      if @image.save
+        # Creates thumbnail
+        Resque.enqueue(Thumbnail, @image)
+        format.html { redirect_to images_index_url, notice: "Image was uploaded!" }
+      else
+        format.html { render :create }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -76,5 +60,11 @@ class ImagesController < ApplicationController
   def hash_file_name(filename)
     require 'digest/sha1'
     return Digest::SHA1.hexdigest(filename)
+  end
+
+  def require_login
+    unless logged_in?
+      flash[:error] = "You must be logged in"
+    end
   end
 end
