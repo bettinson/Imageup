@@ -34,10 +34,17 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
+  def feed
+    @user = current_user
+    if @user
+      @feed_images = @user.feed
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
-  
+
 end

@@ -8,13 +8,16 @@ Rails.application.routes.draw do
   get 'images/upload'
   get 'images/create'
   post 'images/upload'
-  root 'images#index'
+
+  get '/home', to: 'users#feed'
+  root 'users#feed'
   delete '/images', to: 'images#destroy'
 
   get  '/signup',  to: 'users#new'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+
 
   resources :users do
     member do
