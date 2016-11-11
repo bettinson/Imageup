@@ -24,9 +24,8 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       if @image.save
-        # Creates thumbnail
-        Resque.enqueue(Thumbnail, @image)
-        format.html { redirect_to images_index_url, notice: "Image was uploaded!" }
+        Resque.enqueue(CreateThumbnail, @image)
+        format.html { redirect_to root_path, notice: "Image was uploaded!" }
       else
         format.html { render :create }
         format.json { render json: @image.errors, status: :unprocessable_entity }
@@ -65,6 +64,7 @@ class ImagesController < ApplicationController
   def require_login
     unless logged_in?
       flash[:error] = "You must be logged in"
+      redirect_to login_path
     end
   end
 end

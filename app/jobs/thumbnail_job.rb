@@ -1,4 +1,4 @@
-class Thumbnail
+class CreateThumbnail
   @queue = :serve_thumbnail
 
   # Param is an image hash

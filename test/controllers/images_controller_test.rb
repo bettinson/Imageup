@@ -23,27 +23,34 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get create page" do
+  test "should get create page when logged in" do
+    login
     get images_create_url
     assert_response :success
   end
 
-  test "should upload image" do
-    # Logs in first
-    post login_path, params: { session: { email:    @user.email,
-                                          password: 'password' } }
+  test "should redirect from create page when not logged in" do
+    get images_create_url
+    assert_redirected_to login_path
+  end
 
+  test "should upload image" do
+    login
     assert_difference('Image.count') do
       post images_upload_url, params: { image: { title: 'Hey', picture: @picture } }
     end
 
-    assert_redirected_to images_index_url
+    assert_redirected_to root_url
+  end
+
+  test "shouldn't upload image if not logged in" do
+    assert_no_difference('Image.count') do
+      post images_upload_url, params: { image: { title: 'Hey', picture: @picture } }
+    end
   end
 
   test "should fail on invalid image" do
-    post login_path, params: { session: { email:    @user.email,
-                                          password: 'password' } }
-
+    login
     assert_no_difference('Image.count') do
       post images_upload_url, params: { image: { title: 'Hey', picture: @pdf } }
     end
@@ -51,20 +58,24 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
   test "shouldn't delete image if not on right account" do
     assert_no_difference('Image.count', -1) do
-      # byebug
       delete images_url(id: @image.id)
     end
-    assert_redirected_to images_index_url
+    assert_redirected_to login_path
   end
 
   test "should delete image if on right account" do
-    post login_path, params: { session: { email:    @user.email,
-                                          password: 'password' } }
+    login
     assert_difference('Image.count', -1) do
       # byebug
       delete images_url(id: @image.id)
     end
 
     assert_redirected_to images_index_url
+  end
+
+  private
+  def login
+    post login_path, params: { session: { email:    @user.email,
+                                          password: 'password' } }
   end
 end
