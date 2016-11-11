@@ -12,8 +12,7 @@
 					<% if !image.user.nil? %>
 						<p>Posted by: <%=link_to("#{image.user.name}", user_url(image.user.id), data: nil)%> </p>
 					<% end %>
-                    <p>Uploaded on: <%= image.created_at.strftime("%d %b. %Y") +" "+ image.created_at.strftime("%H:%M") %></p>
-                    <p><%=image.thumb_nail_path%></p>
+              <p>Uploaded on: <%= image.created_at.strftime("%d %b. %Y") +" "+ image.created_at.strftime("%H:%M") %></p>
             <% if Rails.env.production? %>
                 <% if !image.thumb_nail_path.nil? %>
                     <% image_path = "/i/" + image.thumb_nail_path %>
