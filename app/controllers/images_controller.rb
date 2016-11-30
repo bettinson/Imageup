@@ -11,6 +11,9 @@ class ImagesController < ApplicationController
 
   def index
     @images = Image.all
+    respond_to do |format|
+      format.json { render :json @images }
+    end
   end
 
   def upload
@@ -26,6 +29,7 @@ class ImagesController < ApplicationController
       if @image.save
         Resque.enqueue(CreateThumbnail, @image)
         format.html { redirect_to root_path, notice: "Image was uploaded!" }
+        format.json { render json: status: :uploaded }
       else
         format.html { render :create }
         format.json { render json: @image.errors, status: :unprocessable_entity }
