@@ -13,6 +13,7 @@ class ImagesController < ApplicationController
     @images = Image.all
     respond_to do |format|
       format.json { render json: @images }
+      format.html { render :index }
     end
   end
 
