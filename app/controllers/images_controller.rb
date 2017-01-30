@@ -51,7 +51,6 @@ class ImagesController < ApplicationController
           format.html { redirect_to images_index_url, notice: "Image was deleted!" }
         else
           format.html { redirect_to images_index_url, notice: "Image was unable to be deleted." }
-
         end
       end
     else
