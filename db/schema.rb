@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101224259) do
+ActiveRecord::Schema.define(version: 20170208181544) do
 
   create_table "images", force: :cascade do |t|
     t.string   "path"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20161101224259) do
     t.datetime "updated_at",      null: false
     t.string   "password_digest"
     t.string   "remember_digest"
+    t.string   "carrot"
+    t.text     "pre_carrot"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

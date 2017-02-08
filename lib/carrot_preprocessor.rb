@@ -35,7 +35,7 @@ class Preprocessor
           end
         end
         if @variables.has_key? @tokens[i].value
-          @text << @variables[@tokens[i].value]
+          @text << @variables[@tokens[i].value][1...-1]
         else
           puts @tokens[i].value + " " + @variables.to_s
         end

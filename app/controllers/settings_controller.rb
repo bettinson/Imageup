@@ -7,17 +7,15 @@ class SettingsController < ApplicationController
 
   def queue_page_gen
     text = params[:body]
+    current_user.pre_carrot = text
     if text != ""
-      # TODO kick off page generation
       text = create_html(text)
-      if text == ""
-        raise Exception.new("Empty file body")
-      end
-
-      # Okay, its good, now do something with it
+      current_user.carrot = text
     else
+      raise Exception.new("Empty file body")
       flash[:error] = "Invalid input"
     end
+    current_user.save
   end
 
   # This is duplicated code. Obviously not ideal

@@ -2,10 +2,15 @@
 
 <div class="modal-body row">
   <div class="col-md-6">
+    <% if current_user.pre_carrot.nil? %>
+        <% text_area_placeholder = "{{name=\"" + current_user.name + "\";}}" %>
+    <% else %>
+        <% text_area_placeholder = current_user.pre_carrot %>
+    <% end %>
     <%= form_tag settings_queuepage_url do %>
-            <%= text_area_tag :body, 'HTML goes here...',  size: '80x20'%>
+            <%= text_area_tag :body, text_area_placeholder,  size: '80x20'%>
             <%= submit_tag %>
-          <% end %>
+        <% end %>
   </div>
   <div class="col-md-6">
    <p>To the left is a box that allows you to paste HTML in it.
@@ -16,14 +21,13 @@
       </p>
    <br>
     <code>
-      {{ name="Matt";}}
+      {{name="Matt";}}
       <br>
-      Hi, This is {{ name; }}'s website.
+      Hi, This is {{name;}}'s website.
     </code>
 
     <br>
     <br>
-    
     <p>This allows you to specify variables of commonly used words, and soon it will support block syntax so you can 
     lay out each image how you want it.
     </p> 
