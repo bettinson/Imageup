@@ -17,8 +17,9 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-  get '/settings',   to: 'settings#edit'
 
+  post '/settings/queuepage', to: 'settings#queue_page_gen'
+  get '/settings',   to: 'settings#edit'
 
   resources :users do
     member do

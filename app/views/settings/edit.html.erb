@@ -2,8 +2,10 @@
 
 <div class="modal-body row">
   <div class="col-md-6">
-     <textarea rows="20" cols="60">
-    </textarea>
+    <%= form_tag settings_queuepage_url do %>
+            <%= text_area_tag :body, 'HTML goes here...',  size: '80x20'%>
+            <%= submit_tag %>
+          <% end %>
   </div>
   <div class="col-md-6">
    <p>To the left is a box that allows you to paste HTML in it.

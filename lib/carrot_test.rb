@@ -61,39 +61,4 @@ class LexerTest < Test::Unit::TestCase
     assert_equal @lexer.next_token.value, ' this is not syntax'
     assert !@lexer.stream.in_syntax
   end
-
-#  def test_simple_token_array
-#    toks = Lexer.lex('{{title="Matt\'s blog"}}')
-#    test_array = ["{{", "title", "=", '"', "Matt's"," ","blog", '"', "}}"]
-#    index = 0
-#    toks.select{|c| c.class == Token }.each do |s|
-#      assert_equal test_array[index], s.value
-#      index = index + 1
-#    end
-#  end
-#
-#  def test_errors_on_reserved_word_assignment
-#    assert_raise ArgumentError do
-#      Lexer.lex('{{photos="Matt\'s blog"}}')
-#    end
-#  end
-#
-#  def test_no_errors_on_keyword_usage
-#    assert_nothing_raised do
-#      Lexer.lex('{{ photos }}')
-#    end
-#  end
 end
-
-# class PreProcessorTest < Test::Unit::TestCase
-#  def setup
-#  end
-
-#  def test_basic_var_assignment
-#    test_hash = Hash.new
-#    processer = Preprocessor.new()
-#    test_hash["var"] = "Matt"
-#    assert_equal processer.process_string('{{var="Matt"}}'), test_hash
-  
-#  end
-# end

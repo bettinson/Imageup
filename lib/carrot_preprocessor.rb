@@ -5,23 +5,16 @@ require_relative './carrot_lexer.rb'
 class Preprocessor
   attr_reader :variables
 
-  def initialize()
+  def self.create_html_file(crt_string)
     @tokens = []
     @variables = {}
-  end
-
-  def create_html_file(crt_file)
-    @file = File.new('output.html', 'w')
-
-    crt = File.open(crt_file, 'r')
-    crt.each_line do |line|
-      process(line)
-    end
-    return @file
+    @text = ""
+    self.process(crt_string)
+    return @text
   end
 
   private
-  def process(line)
+  def self.process(line)
     @token_stream = LexerStream.new(line)
 
     while @token_stream.stream.front != nil
@@ -42,12 +35,12 @@ class Preprocessor
           end
         end
         if @variables.has_key? @tokens[i].value
-          @file.write(@variables[@tokens[i].value])
+          @text << @variables[@tokens[i].value]
         else
           puts @tokens[i].value + " " + @variables.to_s
         end
       when :non_syntax
-        @file.write(token.value)
+        @text << token.value
       end
     end
     @tokens = []
