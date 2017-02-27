@@ -7,16 +7,16 @@
         <%= @user.name %>
       </h1>
 
-    <% if @user.carrot != nil %>
-        <p><%= @user.carrot%> </p>
-    <% end %>
     </section>
     <section class="stats">
         <%= render 'shared/stats' %>
     </section>
     <div class ="col-md-8">
-        <%=render 'follow_form' if logged_in? %>
-      <% @user.images.each do |image| %>
+      <%=render 'follow_form' if logged_in? %>
+    <% if @user.carrot != nil %>
+      <%= raw(@output) %>
+    <% end %>
+      <!--<% @user.images.each do |image| %>
         <p><%= image.title %></p>
         <% if Rails.env.production? %>
           <% image_path = "/i/" + image.path %>
@@ -26,7 +26,7 @@
         <div class="image_container">
           <%= link_to image_tag(image_path, :size => "", :crop => :fill), images_display_url(id: image.id) %>
         </div>
-      <% end %>
+      <% end %>-->
     </div>
   </aside>
 </div>

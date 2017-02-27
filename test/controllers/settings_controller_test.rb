@@ -19,9 +19,27 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
     crt_body = "HTML + CRT goes here..."
     assert is_logged_in?
     post settings_queuepage_url, params: { body: crt_body }
+    get user_path @user.id
     # This doesen't work for some reason
     # assert_equal @user.carrot, crt_body
   end
+
+  test "Carrot photos syntax should generate appropriate HTML" do
+    login
+    get settings_path
+    crt_body = "{{name='matt';}}
+                {{photos;}}
+                {{photo.image;}}
+                {{photos;}}"
+    assert is_logged_in?
+    post settings_queuepage_url, params: { body: crt_body }
+    assert_not @user.carrot.nil?
+    get user_path @user.id
+    # This doesen't work for some reason
+    # assert_equal @user.carrot, crt_body
+  end
+
+
 
   private
   def login

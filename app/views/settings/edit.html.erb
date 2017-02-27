@@ -3,7 +3,11 @@
 <div class="modal-body row">
   <div class="col-md-6">
     <% if current_user.pre_carrot.nil? %>
-        <% text_area_placeholder = "{{name=\"" + current_user.name + "\";}}" %>
+        <% text_area_placeholder = "{{name=\"" + current_user.name + "\";}}
+          {{photos;}}
+          {{photo.title;}}
+          {{photo.image;}}
+          {{photos;}}" %>
     <% else %>
         <% text_area_placeholder = current_user.pre_carrot %>
     <% end %>

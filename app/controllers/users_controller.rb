@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
+  require 'erb'
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy,
                                         :following, :followers]
   def show
     @user = User.find(params[:id])
+    # TODO ERB has no knowledge of things like link_to
+    @output = ERB.new(@user.carrot).result(binding) unless @user.carrot.nil?
+    # @output = ERB.new("<% hey = ").result(binding)
   end
 
   def new

@@ -29,6 +29,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       if @image.save
         Resque.enqueue(CreateThumbnail, @image)
+        # TODO: Recreate page
         format.html { redirect_to root_path, notice: "Image was uploaded!" }
         # format.json { render json: status: :uploaded }
       else

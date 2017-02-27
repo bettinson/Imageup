@@ -1,8 +1,8 @@
 require_relative './carrot_preprocessor.rb'
 
 module Carrot
-  def create_html(crt_contents)
-    Preprocessor.create_html_file(crt_contents)
+  def create_html(crt_contents, user)
+    Preprocessor.create_html_file(crt_contents, user)
   end
 
   private

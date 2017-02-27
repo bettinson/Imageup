@@ -9,7 +9,7 @@ class SettingsController < ApplicationController
     text = params[:body]
     current_user.pre_carrot = text
     if text != ""
-      text = create_html(text)
+      text = create_html(text, current_user)
       current_user.carrot = text
     else
       raise Exception.new("Empty file body")
