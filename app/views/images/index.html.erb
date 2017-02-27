@@ -6,8 +6,8 @@
     </thead>
         <% @images.reverse.each do |image| %>
         <tr>
-            <div class="row">
-                <div class="col-sm-4">
+            <div id="my-row" class="row">
+                <div class="col-xs-12 col-sm-4 panel">
                     <p><%= image.title %></p>
 					<% if !image.user.nil? %>
 						<p>Posted by: <%=link_to("#{image.user.name}", user_url(image.user.id), data: nil)%> </p>

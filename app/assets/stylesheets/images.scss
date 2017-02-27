@@ -19,8 +19,19 @@
  body {
    padding-top: 1.5rem;
    padding-bottom: 1.5rem;
-   margin: 2rem;
+   margin: 0 auto;
+   max-width: 75em;
  }
+
+ #my-row {
+    display: table;
+}
+
+#my-row .panel {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
+}
 
  /* Everything but the jumbotron gets side spacing for mobile first views */
  .header,
@@ -97,6 +108,6 @@
  }
 
  .image_container img {
-   max-width: 200px;
-   max-height: 200px;
+   max-width: 400px;
+   max-height: 400px;
  }
