@@ -15,15 +15,26 @@ This is my image uploader service.
 
 ## Get started
 
-`$ bundle install --without production && rake db:migrate`
+- `brew install redis`
+- `bundle install --without production && rake db:migrate`
+- Create a config/secrets.yml the following contents and your own keys. Generate new keys with `rails secret`:
+
+```
+development:
+  secret_key_base: 3b406be...
+test:
+  secret_key_base: 62969ff...
+production:
+  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+```
 
 Run tests with:
 
-`$ rake`
+`rake`
 
 Load server with:
 
-`$ rails server` and then go to `http://localhost:3000`
+`rails server` and then separately `open http://localhost:3000`
 
 Start the thumbnail background thread in another thread with:
 
