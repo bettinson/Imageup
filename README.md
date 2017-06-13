@@ -15,19 +15,32 @@ This is my image uploader service.
 
 ## Get started
 
-`$ bundle install --without production && rake db:migrate`
+Install dependencies and configure:
 
-Run tests with:
+1. `brew install redis`
+- `bundle install --without production`
+- `rake db:migrate`
+- Create a config/secrets.yml the following contents and your own keys. Generate new keys with `rails secret`:
 
-`$ rake`
+```
+development:
+  secret_key_base: 3b406be...
+test:
+  secret_key_base: 62969ff...
+production:
+  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+```
 
-Load server with:
+---
 
-`$ rails server` and then go to `http://localhost:3000`
+Run tests and start our server:
 
-Start the thumbnail background thread in another thread with:
-
-`RAILS_ENV=production rake resque:work QUEUE=* BACKGROUND=YES` and `redis-server`
+1. Start the thumbnail background thread in another thread with:
+    - `RAILS_ENV=production rake resque:work QUEUE=* BACKGROUND=YES`
+    - `redis-server`
+- Run tests with: `rake`
+- Load server with: `rails server`
+- Open [http://localhost:3000]()
 
 ## Eventual roadmap:
 

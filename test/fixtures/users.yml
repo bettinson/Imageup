@@ -7,9 +7,9 @@ matt:
 luisa:
   name: Luisa Example
   email: luisa@example.com
-  password_digest: <&= User.digest('password') %>
+  password_digest: <%= User.digest('password') %>
 
 quentin:
   name: Quintain Petroleum
   email: quentain@example.com
-  password_digest: <&= User.digest('password') %>
+  password_digest: <%= User.digest('password') %>
